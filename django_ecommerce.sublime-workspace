@@ -3,6 +3,10 @@
 	{
 		"selected_items":
 		[
+			[
+				"Sign",
+				"SigninForm\tclass"
+			]
 		]
 	},
 	"buffers":
@@ -11,7 +15,7 @@
 			"file": "django_ecommerce/django_ecommerce/settings.py",
 			"settings":
 			{
-				"buffer_size": 5916,
+				"buffer_size": 5655,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -20,19 +24,34 @@
 			"file": "django_ecommerce/payments/models.py",
 			"settings":
 			{
-				"buffer_size": 602,
+				"buffer_size": 1017,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "# project/urls.py\n\n\nfrom django.conf.urls import patterns, include, url\nfrom payments import views\n\n\n# Uncomment the next two lines to enable the admin:\nfrom django.contrib import admin\nadmin.autodiscover()\n\n\nurlpatterns = patterns('',\n    url(r'^admin/', include(admin.site.urls)),\n\n    url(r'^$', 'main.views.index', name='home'),\n    url(r'^pages/', include('django.contrib.flatpages.urls')),\n    url(r'^contact/', 'contact.views.contact', name='contact'),\n\n    # user registration/authentication\n    url(r'^sign_in$', views.sign_in, name='sign_in'),\n    url(r'^sign_out$', views.sign_out, name='sign_out'),\n    url(r'^register$', views.register, name='register'),\n    url(r'^edit$', views.edit, name='edit'),\n)\n",
-			"file": "django_ecommerce/django_ecommerce/urls.py",
-			"file_size": 712,
-			"file_write_time": 131260781620000000,
+			"file": "django_ecommerce/payments/tests.py",
 			"settings":
 			{
-				"buffer_size": 715,
+				"buffer_size": 10880,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "django_ecommerce/contact/tests.py",
+			"settings":
+			{
+				"buffer_size": 1035,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "django_ecommerce/main/tests.py",
+			"settings":
+			{
+				"buffer_size": 2016,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -50,7 +69,7 @@
 			"file": "django_ecommerce/payments/forms.py",
 			"settings":
 			{
-				"buffer_size": 1330,
+				"buffer_size": 1394,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -68,7 +87,7 @@
 			"file": "django_ecommerce/payments/views.py",
 			"settings":
 			{
-				"buffer_size": 4148,
+				"buffer_size": 4041,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -77,7 +96,7 @@
 			"file": "django_ecommerce/contact/forms.py",
 			"settings":
 			{
-				"buffer_size": 241,
+				"buffer_size": 297,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -149,7 +168,7 @@
 			"file": "django_ecommerce/main/views.py",
 			"settings":
 			{
-				"buffer_size": 352,
+				"buffer_size": 351,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -213,8 +232,11 @@
 	"file_history":
 	[
 		"/Users/Rick/Library/Application Support/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
-		"/Users/Rick/Dropbox/realpython/django_ecommerce/django_ecommerce/main/tests.py",
+		"/Users/Rick/Library/Application Support/Sublime Text 3/Packages/Djaneiro/Settings/Python (Django).sublime-settings",
+		"/Users/Rick/Library/Application Support/Sublime Text 3/Packages/User/Python (Django).sublime-settings",
+		"/Users/Rick/Dropbox/realpython/django_ecommerce/django_ecommerce/django_ecommerce/urls.py",
 		"/Users/Rick/Library/Application Support/Sublime Text 3/Packages/SublimeLinter/SublimeLinter.sublime-settings",
+		"/Users/Rick/Dropbox/realpython/django_ecommerce/django_ecommerce/main/tests.py",
 		"/Users/Rick/Dropbox/realpython/django_ecommerce/django_ecommerce/templates/user.html",
 		"/Users/Rick/Dropbox/realpython/django_ecommerce/django_ecommerce/templates/test.html",
 		"/Users/Rick/Dropbox/realpython/django_ecommerce/django_ecommerce/templates/sign_in.html",
@@ -275,6 +297,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"super",
+			"UserModelTest",
+			"assertFormError",
+			"user = User",
 			"requried",
 			"STATICFILES_DIRS"
 		],
@@ -294,7 +320,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -303,15 +329,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5916,
+						"buffer_size": 5655,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								266,
-								266
+								677,
+								677
 							]
 						],
 						"settings":
@@ -325,6 +351,10 @@
 								{
 									"characters": ".",
 									"selector": "source.python - string - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
 								}
 							],
 							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
@@ -332,10 +362,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1644.0,
+						"translation.y": 17.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -344,15 +374,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 602,
+						"buffer_size": 1017,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								601,
-								601
+								1016,
+								1016
 							]
 						],
 						"settings":
@@ -376,24 +406,110 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "django_ecommerce/django_ecommerce/urls.py",
+					"file": "django_ecommerce/payments/tests.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 715,
+						"buffer_size": 10880,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								715,
-								715
+								6715,
+								6715
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": ".",
+									"selector": "source.python - string - comment - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								}
+							],
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 2837.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "django_ecommerce/contact/tests.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1035,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1035,
+								1035
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": ".",
+									"selector": "source.python - string - comment - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								}
+							],
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "django_ecommerce/main/tests.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2016,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								402,
+								402
 							]
 						],
 						"settings":
@@ -417,11 +533,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 5,
 					"file": "django_ecommerce/payments/admin.py",
 					"semi_transient": false,
 					"settings":
@@ -456,24 +572,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 6,
 					"file": "django_ecommerce/payments/forms.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1330,
+						"buffer_size": 1394,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1031,
-								1031
+								848,
+								848
 							]
 						],
 						"settings":
@@ -497,11 +613,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 7,
 					"file": "django_ecommerce/test-stripe.py",
 					"semi_transient": false,
 					"settings":
@@ -525,24 +641,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 8,
 					"file": "django_ecommerce/payments/views.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4148,
+						"buffer_size": 4041,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1658,
-								1658
+								2715,
+								2715
 							]
 						],
 						"settings":
@@ -552,27 +668,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 552.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 9,
 					"file": "django_ecommerce/contact/forms.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 241,
+						"buffer_size": 297,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								179,
-								179
+								268,
+								268
 							]
 						],
 						"settings":
@@ -594,11 +710,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 10,
 					"file": "django_ecommerce/contact/admin.py",
 					"semi_transient": false,
 					"settings":
@@ -633,11 +749,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 15,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 11,
 					"file": "django_ecommerce/templates/contact.html",
 					"semi_transient": false,
 					"settings":
@@ -661,11 +777,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 14,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 12,
 					"file": "django_ecommerce/templates/flatpages/default.html",
 					"semi_transient": false,
 					"settings":
@@ -689,11 +805,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 15,
+					"stack_index": 17,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 13,
 					"file": "django_ecommerce/contact/models.py",
 					"semi_transient": false,
 					"settings":
@@ -717,11 +833,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 16,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 14,
 					"file": "django_ecommerce/contact/views.py",
 					"semi_transient": false,
 					"settings":
@@ -758,11 +874,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 13,
+					"buffer": 15,
 					"file": "django_ecommerce/templates/base.html",
 					"semi_transient": false,
 					"settings":
@@ -788,11 +904,11 @@
 						"translation.y": 777.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
-					"buffer": 14,
+					"buffer": 16,
 					"file": "django_ecommerce/templates/index.html",
 					"semi_transient": false,
 					"settings":
@@ -818,24 +934,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 12,
 					"type": "text"
 				},
 				{
-					"buffer": 15,
+					"buffer": 17,
 					"file": "django_ecommerce/main/views.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 352,
+						"buffer_size": 351,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								351,
-								351
+								99,
+								99
 							]
 						],
 						"settings":
@@ -857,7 +973,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 8,
 					"type": "text"
 				}
 			]
