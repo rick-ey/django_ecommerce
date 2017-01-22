@@ -2,13 +2,13 @@
 
 from django.test import TestCase
 from django.core.urlresolvers import resolve
-from .views import index
+from main.views import index
 from django.shortcuts import render_to_response
 from django.test import RequestFactory
 import mock
 
 
-class MianPageTests(TestCase):
+class MainPageTests(TestCase):
 
     ###############
     #### Setup ####
@@ -16,6 +16,7 @@ class MianPageTests(TestCase):
 
     @classmethod
     def setUpClass(cls):
+        super(MainPageTests, cls).setUpClass()
         request_factory = RequestFactory()
         cls.request = request_factory.get('/')
         cls.request.session = {}
