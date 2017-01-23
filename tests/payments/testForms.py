@@ -12,7 +12,7 @@ class FormTesterMixin():
         test_form = form_cls(data=data)
         # If we get an error then the form should not be valid
         self.assertFalse(test_form.is_valid())
-        self.assertEquals(
+        self.assertEqual(
             test_form.errors[expected_error_name],
             expected_error_msg,
             msg="Expected {} : Actual {} : using data {}".format(
@@ -28,14 +28,14 @@ class FormTesterMixin():
                 'data': {'last_4_digits': '123'},
                 'error': (
                     'last_4_digits',
-                    [u'Ensure this value has at least 4 characters (it has 3).']
+                    ['Ensure this value has at least 4 characters (it has 3).']
                 )
             },
             {
                 'data': {'last_4_digits': '12345'},
                 'error': (
                     'last_4_digits',
-                    [u'Ensure this value has at most 4 characters (it has 5).']
+                    ['Ensure this value has at most 4 characters (it has 5).']
                 )
             }
         ]
@@ -54,9 +54,9 @@ class FormTests(TestCase, FormTesterMixin):
     def test_signin_form_data_validation_for_invalid_data(self):
         invalid_data_list = [
             {'data': {'email': 'j@j.com'},
-             'error': ('password', [u'This field is required.'])},
+             'error': ('password', ['This field is required.'])},
             {'data': {'password': '1234'},
-             'error': ('email', [u'This field is required.'])}
+             'error': ('email', ['This field is required.'])}
         ]
 
         for invalid_data in invalid_data_list:

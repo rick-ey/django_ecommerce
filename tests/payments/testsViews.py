@@ -27,15 +27,15 @@ class ViewTesterMixin(object):
 
     def test_resolves_to_correct_view(self):
         test_view = resolve(self.url)
-        self.assertEquals(test_view.func, self.view_func)
+        self.assertEqual(test_view.func, self.view_func)
 
     def test_returns_appropriate_response_code(self):
         resp = self.view_func(self.request)
-        self.assertEquals(resp.status_code, self.status_code)
+        self.assertEqual(resp.status_code, self.status_code)
 
     def test_returns_correct_html(self):
         resp = self.view_func(self.request)
-        self.assertEquals(resp.content, self.expected_html)
+        self.assertEqual(resp.content, self.expected_html)
 
 
 class SignInPageTests(TestCase, ViewTesterMixin):
@@ -62,7 +62,7 @@ class SignOutPageTests(TestCase, ViewTesterMixin):
         ViewTesterMixin.setupViewTester(
             '/sign_out',
             sign_out,
-            "",  # a redirect will return no html
+            b"",  # a redirect will return an empty byte string
             status_code=302,
             session={"user": "dummy"},
         )
@@ -82,11 +82,11 @@ class RegisterPageTests(TestCase, ViewTesterMixin):
             'register.html',
             {
                 'form': UserForm(),
-                'months': range(1, 12),
+                'months': list(range(1, 12)),
                 'publishable': settings.STRIPE_PUBLISHABLE,
                 'soon': soon(),
                 'user': None,
-                'years': range(2011, 2036),
+                'years': list(range(2011, 2036)),
             }
         )
         ViewTesterMixin.setupViewTester(
@@ -108,10 +108,10 @@ class RegisterPageTests(TestCase, ViewTesterMixin):
             self.request.method = 'POST'
             self.request.POST = None
             resp = register(self.request)
-            self.assertEquals(resp.content, self.expected_html)
+            self.assertEqual(resp.content, self.expected_html)
 
             # Make sure that we did indeed call our is_valid function
-            self.assertEquals(user_mock.call_count, 1)
+            self.assertEqual(user_mock.call_count, 1)
 
     @mock.patch('stripe.Customer.create')
     @mock.patch.object(User, 'create')
@@ -136,10 +136,10 @@ class RegisterPageTests(TestCase, ViewTesterMixin):
 
         resp = register(self.request)
 
-        self.assertEquals(resp.content, "")
-        self.assertEquals(resp.status_code, 302)
+        self.assertEqual(resp.content, b"")
+        self.assertEqual(resp.status_code, 302)
 
-        self.assertEquals(self.request.session['user'], new_user.pk)
+        self.assertEqual(self.request.session['user'], new_user.pk)
         # Verify the user was actually stored in the database.
         create_mock.assert_called_with(
             'pyRock',
@@ -187,11 +187,11 @@ class RegisterPageTests(TestCase, ViewTesterMixin):
             'register.html',
             {
                 'form': self.get_MockUserForm(),
-                'months': range(1, 12),
+                'months': list(range(1, 12)),
                 'publishable': settings.STRIPE_PUBLISHABLE,
                 'soon': soon(),
                 'user': None,
-                'years': range(2011, 2036),
+                'years': list(range(2011, 2036)),
             }
         )
 
@@ -205,10 +205,10 @@ class RegisterPageTests(TestCase, ViewTesterMixin):
             resp = register(self.request)
 
             # Verify that we did things correctly
-            self.assertEquals(resp.content, html.content)
-            self.assertEquals(resp.status_code, 200)
-            self.assertEquals(self.request.session, {})
+            self.assertEqual(resp.content, html.content)
+            self.assertEqual(resp.status_code, 200)
+            self.assertEqual(self.request.session, {})
 
             # Assert there is only one record in the database.
             users = User.objects.filter(email="python@rocks.com")
-            self.assertEquals(len(users), 0)
+            self.assertEqual(len(users), 0)
