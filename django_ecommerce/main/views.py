@@ -11,5 +11,5 @@ def index(request):
     else:
         return render_to_response(
             'user.html',
-            {'user': User.get_by_id(pk=uid)}
+            {'user': User.get_by_id(uid)}
         )
