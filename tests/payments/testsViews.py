@@ -1,14 +1,15 @@
 # payments/tests.py
 
 from payments.views import sign_in, sign_out, soon, register
-from django.test import TestCase, RequestFactory, SimpleTestCase
+from django.test import TestCase, RequestFactory
 from payments.models import User
-from payments.forms import SigninForm, CardForm, UserForm
+from payments.forms import SigninForm, UserForm
 from django.db import IntegrityError
 from django.core.urlresolvers import resolve
 from django.shortcuts import render_to_response
 import django_ecommerce.settings as settings
 import mock
+import socket
 
 
 class ViewTesterMixin(object):
@@ -212,3 +213,31 @@ class RegisterPageTests(TestCase, ViewTesterMixin):
             # Assert there is only one record in the database.
             users = User.objects.filter(email="python@rocks.com")
             self.assertEqual(len(users), 0)
+
+    def test_registering_user_when_stripe_is_down(self):
+
+        # Create the request used to test teh view
+        self.request.session = {}
+        self.request.method = 'POST'
+        self.request.POST = {
+            'email': 'python@rocks.com',
+            'name': 'pyRock',
+            'stripe_token': '...',
+            'last_4_digits': '4242',
+            'password': 'bad_password',
+            'ver_password': 'bad_password',
+        }
+
+        # Mock out Stripe and ask it to throw a connection error
+        with mock.patch(
+            'stripe.Customer.create',
+            side_effect=socket.error("Can't connect to Stripe")
+        ) as stripe_mock:
+
+            # run the test
+            register(self.request)
+
+            # assert there is a record in the database without Stripe id.
+            users = User.objects.filter(email="python@rocks.com")
+            self.assertEquals(len(users), 1)
+            self.assertEquals(users[0].stripe_id, '')
