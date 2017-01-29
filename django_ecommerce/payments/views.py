@@ -9,6 +9,7 @@ from payments.models import User
 import django_ecommerce.settings as settings
 import stripe
 import datetime
+import socket
 
 stripe.api_key = settings.STRIPE_SECRET
 
@@ -59,7 +60,7 @@ def register(request):
         if form.is_valid():
 
             # update based on your billing method (subscription vs one time)
-            customer = stripe.Customer.create(
+            customer = Customer.create(
                 email=form.cleaned_data['email'],
                 description=form.cleaned_data['name'],
                 card=form.cleaned_data['stripe_token'],
@@ -80,8 +81,12 @@ def register(request):
                     cd['email'],
                     cd['password'],
                     cd['last_4_digits'],
-                    customer.id
+                    stripe_id=''
                 )
+                if customer:
+                    user.stripe_id = customer.id
+                    user.save()
+
             except IntegrityError:
                 form.addError(cd['email'] + ' is already a member')
             else:
@@ -141,3 +146,17 @@ def edit(request):
         },
         context_instance=RequestContext(request)
     )
+
+
+class Customer(object):
+
+    @classmethod
+    def create(cls, billing_method="subscription", **kwargs):
+        try:
+            if billing_method == "subscription":
+                return stripe.Customer.create(**kwargs)
+            elif billing_method == "one_time":
+                return stripe.Charge.create(**kwargs)
+        except (socket.error, stripe.APIConnectionError,
+                stripe.InvalidRequestError):
+            return None

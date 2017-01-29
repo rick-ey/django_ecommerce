@@ -114,10 +114,19 @@ class RegisterPageTests(TestCase, ViewTesterMixin):
             # Make sure that we did indeed call our is_valid function
             self.assertEqual(user_mock.call_count, 1)
 
-    @mock.patch('stripe.Customer.create')
-    @mock.patch.object(User, 'create')
+    def get_mock_cust():
+
+        class mock_cust():
+
+            @property
+            def id(self):
+                return 1234
+
+        return mock_cust()
+
+    @mock.patch('payments.views.Customer.create', return_value=get_mock_cust())
     def test_registering_new_user_returns_successfully(
-            self, create_mock, stripe_mock
+            self, stripe_mock
     ):
 
         self.request.session = {}
@@ -131,24 +140,14 @@ class RegisterPageTests(TestCase, ViewTesterMixin):
             'ver_password': 'bad_password',
         }
 
-        # Get the return values of the mocks, for our checks later
-        new_user = create_mock.return_value
-        new_cust = stripe_mock.return_value
-
         resp = register(self.request)
 
         self.assertEqual(resp.content, b"")
         self.assertEqual(resp.status_code, 302)
 
-        self.assertEqual(self.request.session['user'], new_user.pk)
-        # Verify the user was actually stored in the database.
-        create_mock.assert_called_with(
-            'pyRock',
-            'python@rocks.com',
-            'bad_password',
-            '4242',
-            new_cust.id
-        )
+        users = User.objects.filter(email="python@rocks.com")
+        self.assertEqual(len(users), 1)
+        self.assertEqual(users[0].stripe_id, '1234')
 
     def get_MockUserForm(self):
         from django import forms
