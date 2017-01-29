@@ -16,12 +16,9 @@ $(function() {
           $("#credit-card-errors").hide();
           $("#last_4_digits").val(response.card.last4);
           $("#stripe_token").val(response.id);
-          form.submit();
-        } else {
-          $("#stripe-error-message").text(response.error.message);
-          $("#credit-card-errors").show();
-          $("#user_submit").attr("disabled", false);
         }
+        //always submit form even with errors
+        form.submit();
       });
 
       return false;
