@@ -8,7 +8,8 @@ from django.contrib import admin
 admin.autodiscover()
 
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'main.views.index', name='home'),
     url(r'^pages/', include('django.contrib.flatpages.urls')),

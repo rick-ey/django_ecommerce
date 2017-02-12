@@ -1,14 +1,15 @@
 # payments/views.py
 
-from django.db import IntegrityError
+from django.db import IntegrityError, transaction
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from payments.forms import SigninForm, CardForm, UserForm
-from payments.models import User
+from payments.models import User, UnpaidUsers
 import django_ecommerce.settings as settings
 import stripe
 import datetime
+import socket
 
 stripe.api_key = settings.STRIPE_SECRET
 
@@ -38,7 +39,7 @@ def sign_in(request):
     print(form.non_field_errors())
 
     return render_to_response(
-        'sign_in.html',
+        'payments/sign_in.html',
         {
             'form': form,
             'user': user
@@ -59,7 +60,7 @@ def register(request):
         if form.is_valid():
 
             # update based on your billing method (subscription vs one time)
-            customer = stripe.Customer.create(
+            customer = Customer.create(
                 email=form.cleaned_data['email'],
                 description=form.cleaned_data['name'],
                 card=form.cleaned_data['stripe_token'],
@@ -75,13 +76,20 @@ def register(request):
 
             cd = form.cleaned_data
             try:
-                user = User.create(
-                    cd['name'],
-                    cd['email'],
-                    cd['password'],
-                    cd['last_4_digits'],
-                    customer.id
-                )
+                with transaction.atomic():
+                    user = User.create(
+                        cd['name'],
+                        cd['email'],
+                        cd['password'],
+                        cd['last_4_digits'],
+                        stripe_id=''
+                    )
+                    if customer:
+                        user.stripe_id = customer.id
+                        user.save()
+                    else:
+                        UnpaidUsers(email=cd['email']).save()
+
             except IntegrityError:
                 form.addError(cd['email'] + ' is already a member')
             else:
@@ -92,7 +100,7 @@ def register(request):
         form = UserForm()
 
     return render_to_response(
-        'register.html',
+        'payments/register.html',
         {
             'form': form,
             'months': list(range(1, 12)),
@@ -131,7 +139,7 @@ def edit(request):
         form = CardForm()
 
     return render_to_response(
-        'edit.html',
+        'payments/edit.html',
         {
             'form': form,
             'publishable': settings.STRIPE_PUBLISHABLE,
@@ -141,3 +149,17 @@ def edit(request):
         },
         context_instance=RequestContext(request)
     )
+
+
+class Customer(object):
+
+    @classmethod
+    def create(cls, billing_method="subscription", **kwargs):
+        try:
+            if billing_method == "subscription":
+                return stripe.Customer.create(**kwargs)
+            elif billing_method == "one_time":
+                return stripe.Charge.create(**kwargs)
+        except (socket.error, stripe.APIConnectionError,
+                stripe.InvalidRequestError):
+            return None
