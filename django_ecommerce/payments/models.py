@@ -14,6 +14,7 @@ class User(AbstractBaseUser):
     stripe_id = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    rank = models.CharField(max_length=50, default="Padwan")
 
     USERNAME_FIELD = 'email'
 
