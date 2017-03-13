@@ -2,7 +2,8 @@
 
 from django.shortcuts import render_to_response, RequestContext
 from payments.models import User
-from main.models import StatusReport
+from main.models import StatusReport, Announcement
+from datetime import date, timedelta
 # from main.models import MarketingItem
 # from main.templatetags.main_marketing import marketing__circle_item
 
@@ -59,9 +60,23 @@ def index(request):
     else:
         # membership page
         status = StatusReport.objects.all().order_by('-when')[:20]
+
+        announce_date = date.today() - timedelta(days=30)
+        announce = (Announcement.objects.filter(
+            when__gt=announce_date).order_by('-when')
+        )
+
+        usr = User.get_by_id(uid)
+        badges = usr.badges.all()
+
         return render_to_response(
             'main/user.html',
-            {'user': User.get_by_id(uid), 'reports': status},
+            {
+                'user': usr,
+                'badges': badges,
+                'reports': status,
+                'announce': announce
+            },
             context_instance=RequestContext(request),
         )
 

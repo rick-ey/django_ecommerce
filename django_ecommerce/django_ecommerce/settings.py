@@ -137,6 +137,8 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     'contact',
     'payments',
+    'embed_video',
+    'rest_framework',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
