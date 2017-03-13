@@ -1,7 +1,5 @@
 # contact/views.py
 
-# Create your views here.
-
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from .forms import ContactView
@@ -15,8 +13,7 @@ def contact(request):
             our_form = form.save(commit=False)
             our_form.save()
             messages.add_message(
-                request, messages.INFO,
-                'Your message has been sent. Thank you.'
+                request, messages.INFO, 'Your message has been sent. Thank you.'
             )
             return HttpResponseRedirect('/')
     else:
