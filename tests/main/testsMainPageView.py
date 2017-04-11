@@ -2,7 +2,8 @@
 
 from django.test import TestCase
 from django.core.urlresolvers import resolve
-from main.views import index, market_items
+from main.views import index
+from main.models import MarketingItem
 from payments.models import User
 from django.shortcuts import render_to_response
 from django.test import RequestFactory
@@ -40,6 +41,7 @@ class MainPageTests(TestCase):
 
     def test_returns_exact_html(self):
         resp = index(self.request)
+        market_items = MarketingItem.objects.all()
         self.assertEqual(
             resp.content,
             render_to_response(
@@ -49,28 +51,28 @@ class MainPageTests(TestCase):
         )
 
     def test_index_handles_logged_in_user(self):
-        #create a session that appears to have a logged in user
+        # create a session that appears to have a logged in user
         self.request.session = {"user": "1"}
 
-        #setup dummy user
-        #we need to save user so user -> badges relationship is created
+        # setup dummy user
+        # we need to save user so user -> badges relationship is created
         u = User(email="test@user.com")
         u.save()
 
         with mock.patch('main.views.User') as user_mock:
 
-            #tell the mock what to do when called
+            # tell the mock what to do when called
             config = {'get_by_id.return_value': u}
             user_mock.configure_mock(**config)
 
-            #run the test
+            # run the test
             resp = index(self.request)
 
-            #ensure we return the state of the session back to normal
+            # ensure we return the state of the session back to normal
             self.request.session = {}
             u.delete()
 
-            #we are now sending a lot of state for logged in users, rather than
-            #recreating that all here, let's just check for some text
-            #that should only be present when we are logged in.
+            # we are now sending a lot of state for logged in users rather than
+            # recreating that all here, let's just check for some text
+            # that should only be present when we are logged in.
             self.assertContains(resp, "Report back to base")
