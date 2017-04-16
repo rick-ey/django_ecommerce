@@ -1,6 +1,10 @@
 # project/urls.py
 from django.conf.urls import patterns, include, url
 from payments import views
+from main.urls import urlpatterns as main_json_urls
+from djangular_polls.urls import urlpatterns as djangular_polls_json_urls
+
+main_json_urls.extend(djangular_polls_json_urls)
 
 
 # Uncomment the next two lines to enable the admin:
