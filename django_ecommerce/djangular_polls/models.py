@@ -14,6 +14,7 @@ class PollItem(models.Model):
     name = models.CharField(max_length=30)
     text = models.CharField(max_length=300)
     votes = models.IntegerField(default=0)
+    percentage = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
 
     class Meta:
         ordering = ['-text']
