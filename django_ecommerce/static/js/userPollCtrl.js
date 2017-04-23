@@ -5,27 +5,46 @@ pollsApp.config(function($interpolateProvider){
   .endSymbol(']]');
 });
 
-pollsApp.controller('userPollCtrl',
-function($scope, $http) {
-  $scope.total_votes = 0;
-  $scope.vote_data = {} 
+pollsApp.controller('userPollCtrl',function($scope, pollFactory) {
+
+  // get the Poll
+  $scope.poll = ""
+  function setPoll(promise){
+    $scope.poll = promise.data;
+  }
+
+  function getPoll(){
+    return pollFactory.getPoll(1);
+  }
+
+  $scope.barcolor = function(i) {
+    var colors = ['progress-bar-success','progress-bar-info', 'progress-bar-warning', 'progress-bar-danger', '']
+    var idx = i % colors.length;
+    return colors[idx];
+  }
+
+  getPoll().then(setPoll);
 
   $scope.vote = function(item) {
-    item.votes = item.votes + 1;
-    $scope.total_votes = $scope.total_votes + 1;
+    pollFactory.vote_for_item(item).then(getPoll).then(setPoll);
+  }
+});
 
-    for (i in $scope.poll.items) {
-      var temp_item = $scope.poll.items[i];
-      temp_item.percentage = temp_item.votes / $scope.total_votes * 100;
-    }
+pollsApp.factory('pollFactory', function($http) {
+  var baseUrl = '/api/v1';
+  var pollUrl = baseUrl + 'polls/';
+  var pollItemUrl = baseUrl + 'poll_items/';
+
+  var pollFactory = {};
+
+  pollFactory.getPoll = function(id) {
+    return $http.get(pollUrl + id);
   };
 
-  // Get the Poll
-  $scope.poll = ""
+  pollFactory.vote_for_item = function(poll_item) {
+    poll_item.votes += 1;
+    return $http.put(pollItemsUrl + poll_item.id, poll_item);
+  }
 
-  $http.get('/api/v1/polls/1').success(function(data) {
-    $scope.poll = data;
-  }).error(function(data, status) {
-    console.log("calling /api/v1/polls/1 returned status " + status);
-  });
+  return pollFactory;
 });
