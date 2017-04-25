@@ -31,7 +31,7 @@ pollsApp.controller('userPollCtrl',function($scope, pollFactory) {
 });
 
 pollsApp.factory('pollFactory', function($http) {
-  var baseUrl = '/api/v1';
+  var baseUrl = '/api/v1/';
   var pollUrl = baseUrl + 'polls/';
   var pollItemUrl = baseUrl + 'poll_items/';
 

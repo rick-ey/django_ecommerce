@@ -1,5 +1,3 @@
-# /test/main/testSerializers.py
-
 from django.test import TestCase
 from main.models import StatusReport
 from payments.models import User
@@ -42,16 +40,16 @@ class StatusReportSerializer_Tests(TestCase):
         self.assertEquals(expected_json, content)
 
     def test_json_to_StatusReport(self):
+
         json = JSONRenderer().render(self.expected_dict)
         stream = BytesIO(json)
         data = JSONParser().parse(stream)
 
-        # where calling update to pass in existing object, plus data to update
         serializer = StatusReportSerializer(self.new_status, data=data)
         self.assertTrue(serializer.is_valid())
 
         status = serializer.save()
-
+        self.assertEqual(self.new_status, status)
         self.assertEqual(self.new_status.id, status.id)
         self.assertEqual(self.new_status.status, status.status)
         self.assertEqual(self.new_status.when, status.when)

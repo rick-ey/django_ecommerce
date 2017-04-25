@@ -1,0 +1,19 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
+from django.db import models, migrations
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('main', '0004_auto_20170423_1400'),
+    ]
+
+    operations = [
+        migrations.AlterField(
+            model_name='statusreport',
+            name='when',
+            field=models.DateTimeField(auto_now_add=True),
+        ),
+    ]
