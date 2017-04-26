@@ -9,22 +9,14 @@
 </div>
 <div class="row">
   <div class="span6 columns">
-    <form id="user_form" accept-charset="UTF-8" action="{% url 'register' %}" class="form-stacked"  method="post">
+    <section class="container" ng-controller="RegisterCtrl">
+      <form name="{{form.form_name}}" accept-charset="UTF-8" novalidate class="form-signin" role="form" ng-submit="register()">
       {% csrf_token %}
-      {% if form.is_bound and not form.is_valid %}
-        <div class="alert alert-{{error.tags}}"> <a class="close" data-dismiss="alert">×</a>
-          <div class="errors">
-            {% for field in form.visible_fields %}
-            {% for error in field.errors %}
-            <p>{{ field.label }}: {{ error }}</p>
-            {% endfor %}
-            {% endfor %}
-            {% for error in form.non_field_errors %}
-            <p>{{ error }}</p>
-            {% endfor %}
-          </div>
+      <div class="alert" ng-show="register_errors"> <a class="close" data-dismiss="alert">x</a>
+        <div class="errors">
+          <p ng-repeat="error in register_errors">[[ error ]]</p>
         </div>
-      {% endif %}
+      </div>
       {% for field in form.visible_fields %}
       {% include "payments/_field.html" %}
       {% endfor %}
@@ -36,7 +28,8 @@
         </div>
       </div>
       {% include "payments/_cardform.html" %}
-    </form>
+      </form>
+    </section>
   </div>
 </div>
 {% endblock %}
