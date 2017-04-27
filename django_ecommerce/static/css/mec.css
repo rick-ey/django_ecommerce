@@ -70,3 +70,10 @@ input.ng-dirty.ng-invalid {
   color: #FF0000;
   font-family: sans-serif;
 }
+
+#darth_caption {
+  top: 0%;
+  left: 5%;
+  right: 60%;
+  text-align: left;
+}
