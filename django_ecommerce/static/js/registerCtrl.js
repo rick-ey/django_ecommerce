@@ -13,25 +13,27 @@ mecApp.factory("StripeFactory", function($q, $rootScope) {
 
     return deferred.promise;
   }
-  return factory;
+
+    return factory;
 });
 
 mecApp.factory("UserFactory", function($http) {
   var factory = {}
   factory.register = function(user_data) {
-    return $http.post("/register", user_data).then(function(response) {
-      return response.data;
-    });
+    return $http.post("/api/v1/users", user_data).then(function(response)
+      {
+        return response.data;
+      });
   }
   return factory;
 });
 
-mecApp.controller('RegisterCtrl', function($scope, $http, StripeFactory, UserFactory) {
+mecApp.controller('RegisterCtrl',function($scope, $http, StripeFactory, UserFactory) {
 
   setToken = function(data) {
-    $scope.userform.last_4_digits = data.card.last4;
-    $scope.userform.stripe_token = data.id;
-    return $scope.userform;
+        $scope.userform.last_4_digits = data.card.last4;
+        $scope.userform.stripe_token = data.id;
+        return $scope.userform;
   }
 
   logStripeErrors = function(error) {
@@ -45,11 +47,10 @@ mecApp.controller('RegisterCtrl', function($scope, $http, StripeFactory, UserFac
 
   redirect_to_user_page = function(response) {
     if (response.errors) {
-      throw response.errors;
-    }
-    else {
-      window.location = response.url
-    }
+          throw response.errors;
+        } else {
+          window.location = response.url
+        }
   }
 
    $scope.register = function() {
@@ -60,7 +61,8 @@ mecApp.controller('RegisterCtrl', function($scope, $http, StripeFactory, UserFac
                 .then(setToken, logStripeErrors)
                 .then(UserFactory.register)
                 .then(redirect_to_user_page)
-                .then(null, logRegisterErrors);
+                .then(null,logRegisterErrors);
+
    };
 
 });

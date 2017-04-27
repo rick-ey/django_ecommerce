@@ -1,5 +1,3 @@
-# payments/views.py
-
 from django.db import IntegrityError, transaction
 from django.http import HttpResponseRedirect, HttpResponseBadRequest, \
     HttpResponse
@@ -83,12 +81,9 @@ def register(request):
             cd = form.cleaned_data
             try:
                 with transaction.atomic():
-                    user = User.create(cd['name'],
-                                       cd['email'],
-                                       cd['password'],
-                                       cd['last_4_digits'],
-                                       stripe_id=""
-                                       )
+                    user = User.create(cd['name'], cd['email'], cd['password'],
+                                       cd['last_4_digits'], stripe_id="")
+
                     if customer:
                         user.stripe_id = customer.id
                         user.save()
@@ -104,9 +99,8 @@ def register(request):
 
             return HttpResponse(resp, content_type="application/json")
         else:  # form not valid
-            resp = json.dumps({
-                "status": "form-invalid",
-                "errors": form.errors})
+            resp = json.dumps({"status": "form-invalid",
+                               "errors": form.errors})
             return HttpResponse(resp, content_type="application/json")
 
     else:

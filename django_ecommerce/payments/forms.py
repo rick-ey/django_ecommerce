@@ -16,6 +16,9 @@ class SigninForm(PaymentForm):
         widget=forms.PasswordInput(render_value=False)
     )
 
+    form_name = 'signin_form'
+    ng_scope_prefix = 'signinform'
+
 
 class CardForm(PaymentForm):
     last_4_digits = forms.CharField(
@@ -42,7 +45,7 @@ class UserForm(CardForm):
     )
 
     form_name = 'user_form'
-    ng_scope_prefix = "userform"
+    ng_scope_prefix = 'userform'
 
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
