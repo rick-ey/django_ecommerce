@@ -50,6 +50,11 @@ h1, .nav li, .navbar-brand {
   list-style-type: none;
   text-align: left;
 }
+
+#polls {
+  margin-left: 20px;
+}
+
 .member-page {
   padding-top: 20px;
   padding-bottom: 40px;
@@ -69,4 +74,23 @@ input.ng-dirty.ng-invalid {
 .custom-error {
   color: #FF0000;
   font-family: sans-serif;
+}
+
+#darth_caption {
+  top: 0%;
+  left: 5%;
+  right: 60%;
+  text-align: left;
+}
+
+.full-image {
+  overflow: hidden;
+}
+
+.full-image img {
+  position: relative;
+  display: block;
+  margin: auto;
+  min-width: 100%;
+  min-height: 100px;
 }
