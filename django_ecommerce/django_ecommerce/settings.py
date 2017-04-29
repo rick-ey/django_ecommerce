@@ -1,5 +1,6 @@
 # Django settings for django_ecommerce project.
 import os
+import mongoengine
 
 PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
 SITE_ROOT = os.path.dirname(PROJECT_ROOT)
@@ -14,6 +15,9 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
+
+# DATABASES
+mongoengine.connect("mec-geodata")
 
 DATABASES = {
     'default': {
@@ -52,7 +56,7 @@ USE_I18N = True
 USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
-USE_TZ = True
+USE_TZ = False
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
@@ -112,11 +116,12 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'django_ecommerce.urls'
 
-    # Python dotted path to the WSGI application used by Django's runserver.
+# Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'django_ecommerce.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Put strings here, like "/home/html/django_templates" or
+    # "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(SITE_ROOT, 'templates'),
@@ -140,6 +145,7 @@ INSTALLED_APPS = (
     'embed_video',
     'rest_framework',
     'djangular_polls',
+    'usermap',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
