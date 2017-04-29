@@ -1,0 +1,15 @@
+{% extends '__base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+<div ng-controller="UserMapCtrl" class="angular-google-map-container">
+  <google-map center="map.center" zoom="map.zoom"  options="map.options"></google-map>
+</div>
+
+{% endblock content %}
+
+{% block extrajs %}
+<script src='{% static "js/userMapCtrl.js" %}' type="text/javascript"></script>
+{% endblock %}

@@ -94,3 +94,7 @@ input.ng-dirty.ng-invalid {
   min-width: 100%;
   min-height: 100px;
 }
+
+.angular-google-map-container {
+  height: 400px;
+}

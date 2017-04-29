@@ -140,6 +140,7 @@ INSTALLED_APPS = (
     'embed_video',
     'rest_framework',
     'djangular_polls',
+    'usermap',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
