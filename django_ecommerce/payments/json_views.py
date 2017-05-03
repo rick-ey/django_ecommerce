@@ -1,10 +1,13 @@
 from payments.models import User, UnpaidUsers
 from payments.forms import UserForm
 from payments.views import Customer
+from payments.serializers import PasswordSerializer
 from rest_framework.response import Response
 from django.db import transaction
 from django.db import IntegrityError
+from django.http import Http404
 from rest_framework.decorators import api_view
+from rest_framework import generics, status, permissions
 
 
 @api_view(['POST'])
@@ -49,3 +52,33 @@ def post_user(request):
     else:  # for not valid
         resp = {"status": "form-invalid", "errors": form.errors}
         return Response(resp)
+
+
+class ChangePassword(generics.GenericAPIView):
+    """
+    Change password of any user if super admin.
+    * pwd
+    * pwd2
+    """
+    permission_classes = (permissions.IsAdminUser,)
+    serializer_class = PasswordSerializer
+
+    def get_object(self, pk):
+        try:
+            return User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            raise Http404
+
+    def put(self, request, pk, format=None):
+        user = self.get_object(pk)
+        print("<put> Got the user.")
+        serializer = PasswordSerializer(user, data=request.data)
+        print("<put> PasswordSerializer with user.")
+        if serializer.is_valid():
+            print("<put> Serializer is valid.")
+            serializer.save()  # my guess is this is failing on update
+            print("<put> Serializer saved.")
+            return Response("Password Changed.")
+        print("<put> Serializer invalid!")
+        print(serializer.errors)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

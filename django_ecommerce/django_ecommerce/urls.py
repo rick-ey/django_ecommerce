@@ -1,4 +1,6 @@
+from django.conf import settings
 from django.conf.urls import patterns, include, url
+from django.conf.urls.static import static
 from django.contrib import admin
 from payments import views
 from main.urls import urlpatterns as main_json_urls
@@ -29,4 +31,6 @@ urlpatterns = patterns(
 
     # api
     url(r'^api/v1/', include('main.urls')),
-)
+
+    # serve media files during deployment
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
