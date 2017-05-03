@@ -1,6 +1,9 @@
 # payments/admin.py
 
 from django.contrib import admin
+from django.contrib.auth.models import User as DjangoUser
+from django.contrib.sites.models import Site
+from django.contrib.auth.models import Group
 from .models import User
 
 
@@ -14,3 +17,8 @@ class UserAdmin(admin.ModelAdmin):
         ('Billing', {'fields': ('stripe_id', )}),
         ('Badges', {'fields': ('badges', )}),
     )
+
+
+admin.site.unregister(DjangoUser)
+admin.site.unregister(Group)
+admin.site.unregister(Site)

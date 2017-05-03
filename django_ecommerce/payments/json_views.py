@@ -81,4 +81,4 @@ class ChangePassword(generics.GenericAPIView):
             return Response("Password Changed.")
         print("<put> Serializer invalid!")
         print(serializer.errors)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
