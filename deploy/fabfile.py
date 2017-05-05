@@ -23,6 +23,7 @@ def update_app():
 
 def update_config():
     with cd("/opt/mec_env/mec_app/deploy"):
+        run("chmod +x gunicorn_start")
         run("cp settings_prod.py ../django_ecommerce/django_ecommerce/")
         run("cp supervisor/mec.conf /etc/supervisor/conf.d/")
         run("cp nginx/sites-available/mec /etc/nginx/sites-available/")
