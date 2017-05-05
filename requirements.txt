@@ -5,7 +5,7 @@ cryptography==1.8.1
 Django==1.8.2
 django-admin-bootstrapped==2.5.7
 django-bootstrap3==8.2.2
-django-embed-video==1.1.0
+django-embed-video==1.1.2
 django-rest-framework-mongoengine==3.3.1
 djangorestframework==3.6.2
 -e git+https://github.com/pashinin/fabric.git@324c6f01ff3147d5e7a13a3498a0d4122f33dbe8#egg=Fabric
@@ -19,7 +19,7 @@ olefile==0.44
 packaging==16.8
 paramiko==2.1.2
 pbr==1.10.0
-Pillow==4.1.1
+Pillow==2.6.0
 psycopg2==2.6.2
 pyasn1==0.2.3
 pycodestyle==2.3.1
