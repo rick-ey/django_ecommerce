@@ -25,7 +25,7 @@ def update_config():
     with cd("/opt/mec_env/mec_app/deploy"):
         run("cp settings_prod.py ../django_ecommerce/django_ecommerce/")
         run("cp supervisor/mec.conf /etc/supervisor/conf.d/")
-        run("cp nginx/sites-avaliable/mec /etc/nginx/sites-available/")
+        run("cp nginx/sites-available/mec /etc/nginx/sites-available/")
         run("/etc/init.d/supervisor restart")
         run("/etc/init.d/nginx restart")
 
