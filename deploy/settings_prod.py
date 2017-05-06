@@ -14,7 +14,7 @@ DATABASES = {
 }
 
 # allowed hosts for our production site
-ALLOWED_HOSTS = ['162.243.159.92/']
+ALLOWED_HOSTS = ['162.243.159.92']
 
 STATIC_ROOT = '/opt/mec_env/static/'
 MEDIA_ROOT = '/opt/mec_env/media/'
